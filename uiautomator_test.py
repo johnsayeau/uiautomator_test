@@ -1,6 +1,7 @@
 from uiautomator import Device
 from PIL import Image
 import math, operator
+import os.path
 
 #boundries of four tiles in input app
 top_left_tile_bounds = (165, 60, 960, 510)
@@ -54,7 +55,10 @@ def tiles_show_usb_connection(bsq_device):
         return False
 
 def tile_has_thumbnail(tile_bounds, ref_tile_img_file,bsq):
-    whole_screen_img = Image.open(bsq.screenshot("temp_images/video_input_tiles.png"))
+    if os.path.exists("temp_images/video_input_tiles.png"):
+        whole_screen_img = Image.open("temp_images/video_input_tiles.png")
+    else:
+        whole_screen_img = Image.open(bsq.screenshot("temp_images/video_input_tiles.png"))
     thumbnail_image = whole_screen_img.crop(tile_bounds)
     thumbnail_image_cropped = crop_out_center(thumbnail_image)
     cropped_ref_img = crop_out_center(Image.open(ref_tile_img_file))

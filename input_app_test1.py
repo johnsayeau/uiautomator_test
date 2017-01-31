@@ -30,6 +30,7 @@ def test_all_tiles_4_thumbnails(bsq):
             exit()
 
 bsq=Device()
+bsq.screenshot("temp_images/video_input_tiles.png")
 #setup_reference_pics(bsq)
 for i in range(1,100):
     print "start of iteration " + str(i)
