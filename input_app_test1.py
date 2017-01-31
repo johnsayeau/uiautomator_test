@@ -18,6 +18,7 @@ def test_all_tiles_4_thumbnails(bsq):
     tile_tuples = [(top_left_tile_bounds, "reference_pics/top_left_tile_ref.png"),
                        (top_right_tile_bounds, "reference_pics/top_right_tile_ref.png"),
                        (bottom_left_tile_bounds, "reference_pics/bottom_left_tile_ref.png")]
+    bsq.screenshot("temp_images/video_input_tiles.png")
     for tile in tile_tuples:
         sleep(5)
         match = tile_has_thumbnail(tile[0], tile[1], bsq)
@@ -30,7 +31,6 @@ def test_all_tiles_4_thumbnails(bsq):
             exit()
 
 bsq=Device()
-bsq.screenshot("temp_images/video_input_tiles.png")
 #setup_reference_pics(bsq)
 for i in range(1,100):
     print "start of iteration " + str(i)
