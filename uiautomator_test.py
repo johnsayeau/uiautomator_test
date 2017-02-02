@@ -12,11 +12,16 @@ bottom_right_tile_bounds = (1020, 570, 1815, 1020)
 def screencap_tile(tile_bounds, bsq):
     #returns image object - not file
     #arg is the left, top, right and bottom of the area
-    whole_screen_img = Image.open(bsq.screenshot("reference_pics/video_input_tiles.png"))
+    #whole_screen_img = Image.open(bsq.screenshot("reference_pics/video_input_tiles.png"))
+    if os.path.exists("reference_pics/video_input_tiles.png"):
+        whole_screen_img = Image.open("reference_pics/video_input_tiles.png")
+    else:
+        whole_screen_img = Image.open(bsq.screenshot("reference_pics/video_input_tiles.png"))
     return whole_screen_img.crop(tile_bounds)
 
 def get_tile_reference_screenshots(bsq_device):
     #has to be run while in the video input app with 4 tiles showing.
+    print "2"
     screencap_tile(top_right_tile_bounds, bsq_device).save("reference_pics/top_right_tile_ref.png")
     screencap_tile(top_left_tile_bounds, bsq_device).save("reference_pics/top_left_tile_ref.png")
     screencap_tile(bottom_left_tile_bounds, bsq_device).save("reference_pics/bottom_left_tile_ref.png")
@@ -63,9 +68,6 @@ def tile_has_thumbnail(tile_bounds, ref_tile_img_file,bsq):
     thumbnail_image_cropped = crop_out_center(thumbnail_image)
     cropped_ref_img = crop_out_center(Image.open(ref_tile_img_file))
     return images_equal(thumbnail_image_cropped, cropped_ref_img)
-
-
-
 
 def setup_reference_pics(bsq_device):
     get_tile_reference_screenshots(bsq_device)

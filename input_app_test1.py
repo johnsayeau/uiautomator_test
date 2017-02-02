@@ -31,7 +31,8 @@ def test_all_tiles_4_thumbnails(bsq):
             exit()
 
 bsq=Device()
-#setup_reference_pics(bsq)
+print "1"
+setup_reference_pics(bsq)
 for i in range(1,100):
     print "start of iteration " + str(i)
     test_all_tiles_4_thumbnails(bsq)
