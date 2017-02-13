@@ -2,6 +2,7 @@ from uiautomator import Device
 from PIL import Image
 import math, operator
 import os.path
+from time import sleep
 
 #boundries of four tiles in input app
 top_left_tile_bounds = (165, 60, 960, 510)
@@ -68,6 +69,34 @@ def tile_has_thumbnail(tile_bounds, ref_tile_img_file,bsq):
     thumbnail_image_cropped = crop_out_center(thumbnail_image)
     cropped_ref_img = crop_out_center(Image.open(ref_tile_img_file))
     return images_equal(thumbnail_image_cropped, cropped_ref_img)
+
+
+def click_tile(bsq, video_input):
+    # this must be run when the video input app is open and the 4 tiles are showing
+    # possible video_input are hdmi1, hdmi2, display_port, vga
+    hdmi1_tile = bsq(className="android.widget.ImageButton")[0]
+    hdmi2_tile = bsq(className="android.widget.ImageButton")[2]
+    display_port_tile = bsq(className="android.widget.ImageButton")[1]
+    vga_tile = bsq
+
+    if video_input == "hdmi1":
+        hdmi1_tile.click()
+    elif video_input == "hdmi2":
+        hdmi2_tile.click()
+    elif video_input == "display_port":
+        display_port_tile.click()
+    elif video_input == "vga":
+        vga_tile.click()
+    else:
+        print "possible video inputs are hdmi1, hdmi2, display_port, vga"
+        exit()
+
+def get_reference_pics_for_desktops(bsq, video_input):
+    # possible video_input are hdmi1, hdmi2, display_port, vga
+    click_tile(bsq, video_input)
+
+
+
 
 def setup_reference_pics(bsq_device):
     get_tile_reference_screenshots(bsq_device)
